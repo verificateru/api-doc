@@ -45,8 +45,6 @@
 <p>Здравствуйте! 
 Добро пожаловать на страницу документации API проекта <a href="http://www.verificate.ru/">verificate.ru</a>! Используя наш API вы можете отправлять смс и звонки, получать их статусы и уведомления о текущем состоянии ресурсов.</p>
 
-<!-- Эта страница создана используя open source платформу для создания документации [Slate](http://github.com/tripit/slate). -->
-
 <h1 id="Описание">Описание</h1>
 
 <blockquote>
@@ -66,166 +64,12 @@
 
 <aside class="warning">Для доступа к API, запрос <b>ОБЯЗАТЕЛЬНО</b> должен содержать токен.</aside>
 
-<h1 id="Смс-сообщение">Смс сообщение</h1>
-
-<h2 id="Создание-смс">Создание смс</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/sms"</span>
-  -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
-  -d <span class="s2">"{recipient:'123456789',content:'Rachel, we were on a break!'}"</span>
-</code></pre>
-
-<blockquote>
-<p>Запрос возвращает следующую JSON структуру:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rachel, we were on a break!"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Эта точка позволяет создать и отправить смс сообщение.</p>
-
-<h3 id="http-запрос">HTTP запрос</h3>
-
-<p><code class="prettyprint">POST http://verificate.ru/api/v1/sms</code></p>
-
-<h3 id="Параметры-json-тела-запроса">Параметры JSON тела запроса</h3>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Описание</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>to</td>
-<td>Номер на который направлено сообщение</td>
-</tr>
-<tr>
-<td>content</td>
-<td>Тело смс сообщения</td>
-</tr>
-</tbody></table>
-
-<aside class="warning">Все указанные в таблице поля являются необходимыми для успешного  создания сообщения.</aside>
-
-<h2 id="Смс-по-id-записи">Смс по id записи</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/sms/1"</span>
-  -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
-</code></pre>
-
-<blockquote>
-<p>Запрос возвращает следующую JSON структуру:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello world"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Эта точка позволяет получить информацию о ресурсе по его id.</p>
-
-<h3 id="http-запрос">HTTP запрос</h3>
-
-<p><code class="prettyprint">GET http://verificate.ru/api/v1/sms/&lt;id&gt;</code></p>
-
-<h3 id="url-параметры">URL параметры</h3>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Описание</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>id смс сообщения</td>
-</tr>
-</tbody></table>
-
-<h2 id="Список-смс-сообщений">Список смс сообщений</h2>
-<pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/sms"</span>
-  -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
-</code></pre>
-
-<blockquote>
-<p>Запрос возвращает следующую JSON структуру:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+123456789"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello world"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+31415926534"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bazinga"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="err">...</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(495) 202-1308"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ad optio deserunt magnam harum praesentium. Eos a dolor alias voluptatem. Aspernatur temporibus dolorum incidunt id nam."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(35222) 73-9763"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inventore quo maiores vel odit et sint facere pariatur. Nisi at consequatur illum odio. Officia id sed sequi modi doloremque. Eum rerum molestias quos deserunt repudiandae."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"total_pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://verificate.ru/api/v1/sms?page=2"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Эта точка позволяет получить информацию о всех ресурсах, на странице.</p>
-
-<h3 id="http-запрос">HTTP запрос</h3>
-
-<p><code class="prettyprint">GET http://verificate.ru/api/v1/sms</code></p>
-
-<h3 id="Параметры-запроса">Параметры запроса</h3>
-
-<table><thead>
-<tr>
-<th>Имя параметра</th>
-<th>Значение по-умолчанию</th>
-<th>Описание</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>page</td>
-<td>1</td>
-<td>Текущая страница</td>
-</tr>
-</tbody></table>
-
 <h1 id="Звонок">Звонок</h1>
 
 <h2 id="Создание-звонка">Создание звонка</h2>
 <pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/calls"</span>
   -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
-  -d <span class="s2">"{recipient:'123456789',content:'Rachel, we were on a break!'}"</span>
+  -d <span class="s1">'{"recipient":"+89031234567","content":"Тестовый звонок"}'</span>
 </code></pre>
 
 <blockquote>
@@ -233,8 +77,8 @@
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rachel, we were on a break!"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89031234567"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Тестовый звонок"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -255,15 +99,15 @@
 </thead><tbody>
 <tr>
 <td>recipient</td>
-<td>Номер на который направлен звонок</td>
+<td>Номер на который направлен звонок (Номер необходимо указать в международном формате согласно рекомендации <a href="https://ru.wikipedia.org/wiki/E.164">E.164</a>)</td>
 </tr>
 <tr>
 <td>content</td>
-<td>Тело звонка</td>
+<td>Содержание звонка</td>
 </tr>
 </tbody></table>
 
-<aside class="warning">Все указанные в таблице поля являются необходимыми для создания звонка.</aside>
+<aside class="warning">Все указанные в таблице поля являются обязательными.</aside>
 
 <h2 id="Звонок-по-id-записи">Звонок по id записи</h2>
 <pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/calls/1"</span>
@@ -275,8 +119,8 @@
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello world"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89031234567"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Тестовый звонок"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -287,7 +131,7 @@
 
 <p><code class="prettyprint">GET http://verificate.ru/api/v1/calls/&lt;id&gt;</code></p>
 
-<h3 id="url-параметры">URL параметры</h3>
+<h3 id="Параметры-запроса">Параметры запроса</h3>
 
 <table><thead>
 <tr>
@@ -313,8 +157,8 @@
   </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+123456789"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello world"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89037654321"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Тестовый звонок"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -326,15 +170,14 @@
     </span><span class="err">...</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(495) 202-1308"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ad optio deserunt magnam harum praesentium. Eos a dolor alias voluptatem. Aspernatur temporibus dolorum incidunt id nam."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Был яркий холодный апрельский день, часы били тринадцать."</span><span class="p">,</span><span class="w">
       </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(35222) 73-9763"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inventore quo maiores vel odit et sint facere pariatur. Nisi at consequatur illum odio. Officia id sed sequi modi doloremque. Eum rerum molestias quos deserunt repudiandae."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89037654321"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Привет мир"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -357,6 +200,159 @@
 <h3 id="http-запрос">HTTP запрос</h3>
 
 <p><code class="prettyprint">GET http://verificate.ru/api/v1/calls</code></p>
+
+<h3 id="Параметры-запроса">Параметры запроса</h3>
+
+<table><thead>
+<tr>
+<th>Имя параметра</th>
+<th>Значение по-умолчанию</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>1</td>
+<td>Текущая страница</td>
+</tr>
+</tbody></table>
+
+<h1 id="Смс-сообщение">Смс сообщение</h1>
+
+<h2 id="Создание-смс">Создание смс</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/sms"</span>
+  -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
+  -d <span class="s1">'{"recipient":"+89031234567","content":"Тестовое сообщение"}'</span>
+</code></pre>
+
+<blockquote>
+<p>Запрос возвращает следующую JSON структуру:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89031234567"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Тестовое сообщение"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Эта точка позволяет создать и отправить смс сообщение.</p>
+
+<h3 id="http-запрос">HTTP запрос</h3>
+
+<p><code class="prettyprint">POST http://verificate.ru/api/v1/sms</code></p>
+
+<h3 id="Параметры-json-тела-запроса">Параметры JSON тела запроса</h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recipient</td>
+<td>Номер куда будет направлено сообщение(Номер необходимо указать в международном формате согласно рекомендации <a href="https://ru.wikipedia.org/wiki/E.164">E.164</a>)</td>
+</tr>
+<tr>
+<td>content</td>
+<td>Тело смс сообщения</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">Все поля являются обязательными.</aside>
+
+<h2 id="Смс-по-id-записи">Смс по id записи</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/sms/1"</span>
+  -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
+</code></pre>
+
+<blockquote>
+<p>Запрос возвращает следующую JSON структуру:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89031234567"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Тестовое сообщение"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Эта точка позволяет получить информацию о ресурсе по его id.</p>
+
+<h3 id="http-запрос">HTTP запрос</h3>
+
+<p><code class="prettyprint">GET http://verificate.ru/api/v1/sms/&lt;id&gt;</code></p>
+
+<h3 id="Параметры-запроса">Параметры запроса</h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>id смс сообщения</td>
+</tr>
+</tbody></table>
+
+<h2 id="Список-смс-сообщений">Список смс сообщений</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"http://verificate.ru/api/v1/sms"</span>
+  -H <span class="s2">"token: 37a6259cc0c1dae299a7866489dff0bd"</span>
+</code></pre>
+
+<blockquote>
+<p>Запрос возвращает следующую JSON структуру:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89037654321"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Тестовый звонок"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+31415926534"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bazinga"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1234567890"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Был яркий холодный апрельский день, часы били тринадцать."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+89037654321"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Привет мир"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"total_pages"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://verificate.ru/api/v1/sms?page=2"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Эта точка позволяет получить информацию о всех ресурсах, на странице.</p>
+
+<h3 id="http-запрос">HTTP запрос</h3>
+
+<p><code class="prettyprint">GET http://verificate.ru/api/v1/sms</code></p>
 
 <h3 id="Параметры-запроса">Параметры запроса</h3>
 
